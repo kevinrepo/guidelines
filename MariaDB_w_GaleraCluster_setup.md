@@ -44,7 +44,7 @@
 
 >/etc/mysql/conf.d/galera.cnf
 
-```javascript {.line-numbers}
+```vim {.line-numbers}
     [mysqld]
     binlog_format=ROW
     default-storage-engine=innodb
