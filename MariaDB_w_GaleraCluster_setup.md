@@ -3,23 +3,26 @@
 ----
 #### (You can refer to original description on links at bottom) 
 
+&nbsp;
 
 ## Install MariaDB
 
-### 1. Download and install by execute
+### 1. Download and install by execute command on CentOS:
 
         $ sudo yum install mariadb-server
 
-### 2. Test start the service. Read status
+### 2. Test starting the service & Reading status
 
         $ sudo systemctl start mariadb
 
         $ sudo systemctl status mariadb
 
-    * If Active: active (running) show. Then it is installed fine.
+    * If "Active: active (running)" shows, MariaDB is installed fine.
 
 
-### 3. Securing MariaDB - To remove anonymous users, disallow remote root login, remove the test database, and reload the privilege tables.
+### 3. Securing MariaDB 
+
+To remove anonymous users, disallow remote root login, remove the test database, and reload the privilege tables.
 
         $ sudo mysql_secure_installation
 
@@ -29,11 +32,11 @@
 
 ## Setup Galera Cluster
 
-* Assuming Already setup 2 more MariaDB on other servers.
+* Assuming we already setup 2 more MariaDB on other servers.
 
-* All 3 servers have ssh access to each others.
+* All 3 servers have ssh key access to each others.
 
-### 1. All we need is to add a new config for each server.
+### 1. All we need is to add a new config file on each server.
     a. locate the directory: */etc/mysql/conf.d*
 
     b. add a new file with either nano or vim.
@@ -68,11 +71,11 @@
     wsrep_node_name="this_node_name"
 ```
 
-* Please notice the following lines need to write info for different server:
+* The only different in the file for each server is the following lines:
 
         wsrep_cluster_address="gcomm://first_ip,second_ip,third_ip"
 
-    *(all three ip addresses)*
+    *(include all three ip addresses)*
 
         # Galera Node Configuration
         wsrep_node_address="this_node_ip"
@@ -113,16 +116,19 @@
 
 
 &nbsp;
-&nbsp;
+
 &nbsp;
 
-# This part is the installation of MariaDB GaleraCluster setup (Docker version)
+&nbsp;
+
+# This part is the Different part of MariaDB GaleraCluster setup (Docker version)
 
 ----
 #### (You can refer to original description on links at bottom) 
 
+&nbsp;
 
-## Noticable difference  
+## Noticable difference on GaleraCuster installation
 
 ### 1. /etc/mysql/conf.d/galera.cnf
 
@@ -171,7 +177,7 @@
 
         $ docker logs -f mariadb-0
 
-### 5. add nodes
+### 5. add more nodes
 
         docker run \
         --name mariadb-1 \
@@ -186,7 +192,7 @@
         --wsrep_node_address=$(ip -4 addr ls eth0 | awk '/inet / {print $2}' | cut -d"/" -f1)
 
 
-### 6. Using Cluster in docker
+### 6. Runing the apps in docker
 
         # The default password in the sample above is "my-secret-pw"
         $ export MYSQL_IP=$(ip -4 addr ls eth0 | awk '/inet / {print $2}' | cut -d"/" -f1)
