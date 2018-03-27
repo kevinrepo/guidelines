@@ -32,7 +32,7 @@
 
 * All 3 servers have ssh access to each others.
 
-1. All we need is to add a new config for each server.
+### 1. All we need is to add a new config for each server.
     a. local the directory: */etc/mysql/conf.d*
 
     b. add a new file with either nano or vim.
@@ -67,8 +67,48 @@
     wsrep_node_name="this_node_name"
 ```
 
+* Please notice the following lines need to write info for different server:
 
+        wsrep_cluster_address="gcomm://first_ip,second_ip,third_ip"
 
+    *(all three ip addresses)*
+
+        # Galera Node Configuration
+        wsrep_node_address="this_node_ip"
+        wsrep_node_name="this_node_name"
+
+    *(ip & node name for each server)*
+
+### 2. Stop all servers for rerun  
+        $ sudo systemctl stop mysql
+
+### 3. Start the first server/node:
+        $ sudo galera_new_cluster
+
+### 4. Check successful starting first node:
+        $ mysql -u root -p -e "SHOW STATUS LIKE 'wsrep_cluster_size'"
+
+        * output
+        +--------------------+-------+
+        | Variable_name      | Value |
+        +--------------------+-------+
+        | wsrep_cluster_size | 1     |
+        +--------------------+-------+
+
+### 5. Bring up 2nd & 3rd Node:
+        $ sudo systemctl start mysql
+
+*(we only need to start the usual way)*
+
+### If all starting success. We will see the following output with command:
+         $ mysql -u root -p -e "SHOW STATUS LIKE 'wsrep_cluster_size'"
+
+        * output
+        +--------------------+-------+
+        | Variable_name      | Value |
+        +--------------------+-------+
+        | wsrep_cluster_size | 3     |
+        +--------------------+-------+
 
 refence [MariaDB on CentOS7](https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-centos-7)
 
