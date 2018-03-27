@@ -44,7 +44,7 @@
 
 >/etc/mysql/conf.d/galera.cnf
 
-
+```bash {.line-numbers}
     [mysqld]
     binlog_format=ROW
     default-storage-engine=innodb
@@ -59,17 +59,13 @@
     wsrep_cluster_name="test_cluster"
     wsrep_cluster_address="gcomm://first_ip,second_ip,third_ip"
 
-    `gcomm://first_ip,second_ip,third_ip`
-    ``gcomm://first_ip,second_ip,third_ip``
-    ```gcomm://first_ip,second_ip,third_ip```
-
     # Galera Synchronization Configuration
     wsrep_sst_method=rsync
 
     # Galera Node Configuration
     wsrep_node_address="this_node_ip"
     wsrep_node_name="this_node_name"
-
+```
 
 
 
