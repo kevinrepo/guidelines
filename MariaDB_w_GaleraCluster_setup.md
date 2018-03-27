@@ -57,7 +57,7 @@
 
     # Galera Cluster Configuration
     wsrep_cluster_name="test_cluster"
-    wsrep_cluster_address="gcomm://first_ip,second_ip,third_ip"
+    wsrep_cluster_address="```gcomm://first_ip,second_ip,third_ip```"
 
     # Galera Synchronization Configuration
     wsrep_sst_method=rsync
