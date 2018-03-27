@@ -19,6 +19,8 @@ see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
 
 **strong**
 
+&nbsp;
+
 * list
 
 >block quote
@@ -33,3 +35,9 @@ see [Wikipedia](http://en.wikipedia.org/wiki/Markdown)
 ----
 ## thanks
 * [markdown-js](https://github.com/evilstreak/markdown-js)
+
+## code block class
+```javascript {.line-numbers}
+```
+
+https://support.codebasehq.com/articles/tips-tricks/syntax-highlighting-in-markdown
